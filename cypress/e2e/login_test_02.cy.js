@@ -1,11 +1,31 @@
+import { Login } from "../pages/login";
+import { Home } from "../pages/home";
+
+
+const LoginPage = new Login();
+const Homepage = new Home();
+
+
 describe('Login Tests', () => {
   it('Test 1 - Log in with testowyqa@qa.team', () => {
-    cy.visit('https://www.edu.goit.global/account/login');
-    cy.get("#user_email").type("testowyqa@qa.team"); 
-    cy.get("#user_password").type("QA!automation-1"); 
-    cy.get('.eckniwg2').click();
-    cy.get('#open-navigation-menu-mobile').click();
-    cy.get(':nth-child(9) > .next-bve2vl').click();
+// visit page
+LoginPage.navigate();
+// check title
+LoginPage.validateLoginTitle();
+// check inputs
+LoginPage.validateInputs();
+// check button
+LoginPage.validateButton();
+// check link
+LoginPage.validatePasswordLink();
+
+//login command
+cy.login("testowyqa@qa.team","QA!automation-1")
+
+// logout
+Homepage.validateHamburgerButton
+cy.logout(":nth-child(9) > .next-bve2vl")
+
   });
 
 });
