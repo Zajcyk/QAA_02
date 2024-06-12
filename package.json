@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "cypress": "^13.11.0"
+    "cypress": "^13.11.0",
+    "artillery": "^2.0.15" 
   },
   "scripts": {
     "test": "jest",
