@@ -5,6 +5,6 @@
   },
   "scripts": {
     "test": "jest",
-    "artillery:test": "artillery run artilery/artillery.yaml"
+    "artillery:test": "artillery run Artilery/artillery.yaml"
   }
 }
