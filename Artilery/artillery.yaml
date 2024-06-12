@@ -1,0 +1,31 @@
+config:
+  target: 'http://httpbin.org/'
+  phases:
+    - duration: 10  # Czas trwania testu w sekundach
+      arrivalRate: 10  # Liczba użytkowników na sekundę
+  payload:
+    path: 'payload/data.csv'
+    fields:
+      - name #nadanie kolumny imie w CSV
+      - age #nadanie kolumny wiek w CSV
+  plugins:
+    ensure: {}
+  ensure:
+    thresholds:
+      - http.response_time.p95: 1000   #maksymalny czas dla 95% uzytkownikow to 1000ms
+    conditions:
+      - expression: vusers.failed == 0 # czy kazdemu uzytkownikowi sie powiodlo
+      - expression: "http.request_rate >= 2 and http.response_time.max < 600" #Czy ilosc odpowiedzi jest wieksza od 2/sec i odpowiedz maksymalna jest ponizej 600ms
+scenarios:
+  - flow:
+      - get: #wysylanie zapytania GET
+          url: '/get'
+          headers:
+            User-Agent: 'Artillery'
+      - post: #Wysylanie zapytania POST
+          url: '/post'
+          json:
+            name: '{{ name }}' #pobieranie imienia z CSV
+            age: '{{ age }}' #pobieranie wieku z CSV
+          headers:
+            Content-Type: 'application/json'
